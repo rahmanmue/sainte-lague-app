@@ -4,13 +4,11 @@ import Alert from "react-bootstrap/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import ApiServices from "../../services/ApiServices";
 import { jwtDecode } from "jwt-decode";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../../store/reducers";
 import { hashStr } from "../../utils";
 
 function Login() {
-  // const state = useSelector((state) => state.rootReducer.data);
-  // console.log(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -62,7 +60,7 @@ function Login() {
         const decoded = jwtDecode(res.accessToken);
         dispatch(addUser(decoded));
         localStorage.setItem("hashCode", hashStr(decoded.role));
-        navigate("/");
+        navigate("/home");
       } else {
         setErrMsg(res.msg);
         setShow(true);
