@@ -58,6 +58,7 @@ function Index() {
                 <th>No</th>
                 <th>Nama</th>
                 <th>Email</th>
+                <th>Role</th>
                 <th> Edit | Hapus</th>
               </tr>
             </thead>
@@ -67,6 +68,7 @@ function Index() {
                   <td>{i + 1}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
+                  <td>{item.role}</td>
                   <td>
                     <div className="d-flex gap-2 justify-content-center">
                       <Link

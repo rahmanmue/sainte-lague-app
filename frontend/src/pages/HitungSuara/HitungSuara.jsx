@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 
 function HitungSuara() {
   const state = useSelector((state) => state.rootReducer.data);
+
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
   const handleClose = () => setShow(false);
@@ -113,7 +114,7 @@ function HitungSuara() {
       provinsi: data.provinsi,
       tahun: data.tahun,
       alokasi_kursi: data.alokasi_kursi,
-      user_id: user?.userId,
+      user_id: state?.userId,
     };
     if (title === "tambah") {
       try {

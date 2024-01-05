@@ -13,12 +13,12 @@ export const getUsers = async (req, res) => {
 
     if (user?.role === "admin") {
       const users = await Users.findAll({
-        attributes: ["id", "name", "email"],
+        attributes: ["id", "name", "email", "role"],
       });
       res.status(200).json(users);
     } else {
       const users = await Users.findOne({
-        attributes: ["id", "name", "email"],
+        attributes: ["id", "name", "email", "role"],
       });
       res.status(200).json(users);
     }

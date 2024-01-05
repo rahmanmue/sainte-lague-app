@@ -59,76 +59,76 @@ function Index() {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Dok-SuaraParpol",
+    documentTitle: "Cetak Suara Parpol",
     onPrintError: () => alert("there is an error when printing"),
   });
 
-  const arrData = [
-    {
-      nama_parpol: "pkb",
-      total_suara_sah: 2210,
-    },
-    {
-      nama_parpol: "gerindra",
-      total_suara_sah: 9770,
-    },
-    {
-      nama_parpol: "pdip",
-      total_suara_sah: 8023,
-    },
-    {
-      nama_parpol: "golkar",
-      total_suara_sah: 9303,
-    },
-    {
-      nama_parpol: "nasdem",
-      total_suara_sah: 2842,
-    },
-    {
-      nama_parpol: "garuda",
-      total_suara_sah: 129,
-    },
-    {
-      nama_parpol: "berkarya",
-      total_suara_sah: 638,
-    },
-    {
-      nama_parpol: "pks",
-      total_suara_sah: 8202,
-    },
-    {
-      nama_parpol: "perindo",
-      total_suara_sah: 1501,
-    },
-    {
-      nama_parpol: "ppp",
-      total_suara_sah: 3880,
-    },
-    {
-      nama_parpol: "psi",
-      total_suara_sah: 971,
-    },
-    {
-      nama_parpol: "pan",
-      total_suara_sah: 4732,
-    },
-    {
-      nama_parpol: "hanura",
-      total_suara_sah: 4373,
-    },
-    {
-      nama_parpol: "demokrat",
-      total_suara_sah: 8408,
-    },
-    {
-      nama_parpol: "pbb",
-      total_suara_sah: 1203,
-    },
-    {
-      nama_parpol: "pkpi",
-      total_suara_sah: 56,
-    },
-  ];
+  // const arrData = [
+  //   {
+  //     nama_parpol: "pkb",
+  //     total_suara_sah: 2210,
+  //   },
+  //   {
+  //     nama_parpol: "gerindra",
+  //     total_suara_sah: 9770,
+  //   },
+  //   {
+  //     nama_parpol: "pdip",
+  //     total_suara_sah: 8023,
+  //   },
+  //   {
+  //     nama_parpol: "golkar",
+  //     total_suara_sah: 9303,
+  //   },
+  //   {
+  //     nama_parpol: "nasdem",
+  //     total_suara_sah: 2842,
+  //   },
+  //   {
+  //     nama_parpol: "garuda",
+  //     total_suara_sah: 129,
+  //   },
+  //   {
+  //     nama_parpol: "berkarya",
+  //     total_suara_sah: 638,
+  //   },
+  //   {
+  //     nama_parpol: "pks",
+  //     total_suara_sah: 8202,
+  //   },
+  //   {
+  //     nama_parpol: "perindo",
+  //     total_suara_sah: 1501,
+  //   },
+  //   {
+  //     nama_parpol: "ppp",
+  //     total_suara_sah: 3880,
+  //   },
+  //   {
+  //     nama_parpol: "psi",
+  //     total_suara_sah: 971,
+  //   },
+  //   {
+  //     nama_parpol: "pan",
+  //     total_suara_sah: 4732,
+  //   },
+  //   {
+  //     nama_parpol: "hanura",
+  //     total_suara_sah: 4373,
+  //   },
+  //   {
+  //     nama_parpol: "demokrat",
+  //     total_suara_sah: 8408,
+  //   },
+  //   {
+  //     nama_parpol: "pbb",
+  //     total_suara_sah: 1203,
+  //   },
+  //   {
+  //     nama_parpol: "pkpi",
+  //     total_suara_sah: 56,
+  //   },
+  // ];
 
   return (
     <>

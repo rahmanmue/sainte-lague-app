@@ -88,14 +88,14 @@ function Result({ dataSuara, alokasiKursi }) {
           </span>
         </div>
       </div>
-      {/* <div className="my-4">
+      <div className="my-5">
         <Info
           peringkatSuaraPartai={peringkatSuaraPartai}
           jumlahKursi={alokasiKursi}
           totalSuaraSah={totalSuaraSah}
           ambangBatasSuara={ambangBatasSuara}
         />
-      </div> */}
+      </div>
     </>
   );
 }

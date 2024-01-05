@@ -96,10 +96,10 @@ function Register() {
         email: data.email,
         password: data.password,
         confPassword: data.confirm_password,
-        role: "admin",
+        role: "user",
       };
       const res = await ApiServices.register(postData);
-      console.log("result : ", res);
+      // console.log("result : ", res);
       navigate("/login");
     } catch (error) {
       console.error(error);
