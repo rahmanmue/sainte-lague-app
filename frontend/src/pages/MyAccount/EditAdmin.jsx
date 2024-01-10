@@ -5,6 +5,7 @@ import ApiServices from "../../services/ApiServices";
 import Swal from "sweetalert2";
 import { isRole } from "../../utils";
 import Select from "../../components/Select/Index";
+import { jwtDecode } from "jwt-decode";
 
 function EditAdmin() {
   const { id } = useParams();
@@ -21,7 +22,7 @@ function EditAdmin() {
   const getUserById = async () => {
     try {
       const res = await ApiServices.getUsersById(id);
-      console.log(res);
+      // console.log(res);
       setData({
         id: res.id,
         nama: res.name,
@@ -131,7 +132,7 @@ function EditAdmin() {
       };
     }
 
-    console.log(postData);
+    // console.log(postData);
 
     try {
       await ApiServices.updateUserById(data.id, postData);
@@ -167,7 +168,8 @@ function EditAdmin() {
       }),
   };
 
-  console.log(data);
+  // console.log(data);
+  const token = jwtDecode(localStorage.getItem("token"));
 
   return (
     <div className="d-flex justify-content-center d-md-block">
@@ -178,11 +180,7 @@ function EditAdmin() {
             {formInput.map((item, i) => (
               <Input props={item} key={i} />
             ))}
-            {isRole(localStorage.getItem("hashCode")) === "admin" ? (
-              <Select props={propsSelect} />
-            ) : (
-              ""
-            )}
+            {token.role === "admin" ? <Select props={propsSelect} /> : ""}
             <button
               type="submit"
               className="bg-orange text-white w-100 fw-semibold  mb-md-3 mt-md-2 border-0 py-2 rounded"

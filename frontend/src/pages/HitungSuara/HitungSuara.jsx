@@ -1,4 +1,3 @@
-import Result from "../HitungSuara/Result";
 import { MdModeEdit } from "react-icons/md";
 import { FaBox } from "react-icons/fa";
 import { IoMdTrash } from "react-icons/io";
@@ -9,10 +8,12 @@ import { Link } from "react-router-dom";
 import ApiServices from "../../services/ApiServices";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import { PROVINSI, getAllYears } from "../../utils";
+import Select from "../../components/Select/Index";
+import { jwtDecode } from "jwt-decode";
 
 function HitungSuara() {
   const state = useSelector((state) => state.rootReducer.data);
-
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
   const handleClose = () => setShow(false);
@@ -20,9 +21,9 @@ function HitungSuara() {
   const baseData = {
     daerah_pemilihan: "",
     kabupaten_kota: "",
-    alokasi_kursi: null,
-    provinsi: "",
-    tahun: null,
+    alokasi_kursi: 0,
+    provinsi: "Pilih Provinsi Yang Tersedia",
+    tahun: new Date().getFullYear(),
   };
   const [data, setData] = useState(baseData);
 
@@ -53,22 +54,6 @@ function HitungSuara() {
       value: data?.kabupaten_kota,
     },
     {
-      label: "Provinsi",
-      name: "provinsi",
-      type: "text",
-      placeholder: "Masukan Provinsi",
-      onChange: handleInputChange,
-      value: data?.provinsi,
-    },
-    {
-      label: "Tahun",
-      name: "tahun",
-      type: "number",
-      placeholder: "Masukan Tahun",
-      onChange: handleInputChange,
-      value: data?.tahun,
-    },
-    {
       label: "Alokasi Kursi",
       name: "alokasi_kursi",
       type: "number",
@@ -78,11 +63,37 @@ function HitungSuara() {
     },
   ];
 
+  const propsProvinsi = {
+    label: "Provinsi",
+    name: "provinsi",
+    value: data?.provinsi,
+    options: PROVINSI,
+    onChange: (e) =>
+      setData({
+        ...data,
+        provinsi: e.target.value,
+      }),
+  };
+
+  const propsTahun = {
+    label: "Tahun",
+    name: "tahun",
+    value: data?.tahun,
+    options: getAllYears(),
+    onChange: (e) =>
+      setData({
+        ...data,
+        tahun: e.target.value,
+      }),
+  };
+
   const [dapil, setDapil] = useState([]);
   // console.log(state.userId);
   const getAllDapil = async () => {
     try {
-      const response = await ApiServices.getAllDapil(state.userId);
+      const decoded = jwtDecode(localStorage.getItem("token"));
+      const userId = state.userId ?? decoded.userId;
+      const response = await ApiServices.getAllDapil(userId);
       setDapil(response);
     } catch (error) {
       console.error(error);
@@ -108,13 +119,15 @@ function HitungSuara() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const decoded = jwtDecode(localStorage.getItem("token"));
+    const userId = state.userId ?? decoded.userId;
     const postData = {
       daerah_pemilihan: data.daerah_pemilihan,
       kabupaten_kota: data.kabupaten_kota,
       provinsi: data.provinsi,
       tahun: data.tahun,
       alokasi_kursi: data.alokasi_kursi,
-      user_id: state?.userId,
+      user_id: userId,
     };
     if (title === "tambah") {
       try {
@@ -156,8 +169,41 @@ function HitungSuara() {
     });
   };
 
+  // const [provinsi, setProvinsi] = useState([]);
+  // const getDataProvinsi = async () => {
+  //   const url = "https://api.binderbyte.com/wilayah/provinsi";
+  //   const apiKey =
+  //     "38c5080c97a388d63e7eb08c5b9ecb85499f9048da384983aebfc9853daffde3";
+
+  //   await axios
+  //     .get(url, { params: { api_key: apiKey } })
+  //     .then((response) => {
+  //       // Handle response data di sini
+  //       // console.log(response.data.value);
+  //       setProvinsi(response.data.value);
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         // The request was made and the server responded with a status code
+  //         // that falls out of the range of 2xx
+  //         console.error(
+  //           "Server responded with non-2xx status:",
+  //           error.response.status
+  //         );
+  //         console.error("Response data:", error.response.data);
+  //       } else if (error.request) {
+  //         // The request was made but no response was received
+  //         console.error("No response received from the server");
+  //       } else {
+  //         // Something happened in setting up the request that triggered an Error
+  //         console.error("Error setting up the request:", error.message);
+  //       }
+  //     });
+  // };
+
   useEffect(() => {
     getAllDapil();
+    // getDataProvinsi();
   }, []);
 
   return (
@@ -167,6 +213,8 @@ function HitungSuara() {
       </button>
       <ModalCustom handleClose={handleClose} show={show} title={title}>
         <form className=" mb-3" onSubmit={onSubmit}>
+          <Select props={propsProvinsi} />
+          <Select props={propsTahun} />
           {formInput.map((item, i) => (
             <Input props={item} key={i} />
           ))}

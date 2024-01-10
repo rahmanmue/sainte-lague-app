@@ -9,19 +9,21 @@ import EditAdmin from "./pages/MyAccount/EditAdmin";
 import DataSuara from "./pages/DataSuara/index";
 import TambahDataSuara from "./pages/DataSuara/Add";
 import EditDataSuara from "./pages/DataSuara/Edit";
+import HomePage from "./pages/Home";
 import { ProtectedRoutes, PublicRoute } from "./routes";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/register" element={<Register />} />
         <Route element={<PublicRoute />}>
+          <Route index element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Route>
 
         <Route element={<ProtectedRoutes />}>
-          <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/hitung-suara" element={<HitungSuara />} />
           <Route

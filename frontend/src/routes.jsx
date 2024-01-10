@@ -1,21 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Layout from "./components/Layout/Index";
-import { isRole } from "./utils";
-import { useSelector } from "react-redux";
-
-const accessToLogin = () => {
-  const state = useSelector((state) => state.rootReducer.data);
-  const id = state.userId;
-  const userRole = isRole(localStorage.getItem("hashCode"));
-
-  return id && userRole ? true : false;
-};
+import { jwtDecode } from "jwt-decode";
 
 export const ProtectedRoutes = () => {
-  const access = accessToLogin();
-  const userRole = isRole(localStorage.getItem("hashCode"));
+  const decoded = jwtDecode(localStorage.getItem("token"));
+  const userRole = decoded.role;
 
-  return (access && userRole === "user") || (access && userRole === "admin") ? (
+  return userRole === "user" || userRole === "admin" ? (
     <Layout>
       <Outlet />
     </Layout>
@@ -25,10 +16,10 @@ export const ProtectedRoutes = () => {
 };
 
 export const PublicRoute = () => {
-  const access = accessToLogin();
-  const userRole = isRole(localStorage.getItem("hashCode"));
+  const decoded = jwtDecode(localStorage.getItem("token"));
+  const userRole = decoded.role;
 
-  return (access && userRole === "user") || (access && userRole === "admin") ? (
+  return userRole === "user" || userRole === "admin" ? (
     <Navigate to="/home" />
   ) : (
     <Outlet />

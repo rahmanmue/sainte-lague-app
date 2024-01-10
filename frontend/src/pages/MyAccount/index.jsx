@@ -6,6 +6,7 @@ import ApiServices from "../../services/ApiServices";
 import Swal from "sweetalert2";
 import EditUser from "./EditUser";
 import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 function Index() {
   const [data, setData] = useState();
@@ -13,7 +14,9 @@ function Index() {
 
   const getUsers = async () => {
     try {
-      const res = await ApiServices.getUsers(state.userId);
+      const decoded = jwtDecode(localStorage.getItem("token"));
+      const userId = state.userId ?? decoded.userId;
+      const res = await ApiServices.getUsers(userId);
       setData(res);
     } catch (error) {
       console.error(error);

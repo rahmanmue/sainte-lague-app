@@ -111,7 +111,7 @@ function Register() {
       <div className="card rounded access">
         <div className="card-body px-md-5 px-4 py-3">
           <h5 className="card-title text-center fw-bold fs-3 mb-4">
-            Register Account
+            Daftar Akun
           </h5>
           <form onSubmit={onSubmitRegister}>
             {formInput.map((item, i) => (

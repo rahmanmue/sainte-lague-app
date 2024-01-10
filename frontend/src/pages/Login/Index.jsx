@@ -59,7 +59,8 @@ function Login() {
       if (!res?.msg) {
         const decoded = jwtDecode(res.accessToken);
         dispatch(addUser(decoded));
-        localStorage.setItem("hashCode", hashStr(decoded.role));
+        // localStorage.setItem("hashCode", hashStr(decoded.role));
+        localStorage.setItem("token", res.accessToken);
         navigate("/home");
       } else {
         setErrMsg(res.msg);
@@ -75,9 +76,9 @@ function Login() {
       <div className="card rounded access">
         <div className="card-body px-md-5 px-4 py-3">
           <div className="mt-2 mb-4 ">
-            <h5 className="card-title fw-bold fs-3 m-0">Login</h5>
+            <h5 className="card-title fw-bold fs-3 m-0">Masuk</h5>
             <span>
-              Don't have account ? <Link to="/register">Register here</Link>
+              Tidak Punya Akun ? <Link to="/register">Daftar Disini</Link>
             </span>
           </div>
           <form action="" onSubmit={handleSubmitLogin}>
